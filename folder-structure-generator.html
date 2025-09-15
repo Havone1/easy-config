@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>フォルダ構成生成システム</title>
+    <link rel="stylesheet" href="./folder-structure-css.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📁 フォルダ構成生成システム</h1>
+            <p>フォルダをドラッグ&ドロップまたは選択して、サイト構造を可視化</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="upload-section">
+                <div class="drop-zone" id="dropZone">
+                    <div class="drop-icon">📂</div>
+                    <div class="drop-text">フォルダをここにドラッグ&ドロップ</div>
+                    <div style="color: #6c757d; margin-bottom: 10px;">または</div>
+                    <input type="file" id="fileInput" class="file-input" webkitdirectory directory multiple>
+                    <button class="select-button" onclick="document.getElementById('fileInput').click()">
+                        フォルダを選択
+                    </button>
+                </div>
+                <div id="fileCount" class="file-count" style="display: none;"></div>
+                <div id="successMessage" class="success-message"></div>
+            </div>
+            
+            <div class="output-section">
+                <div class="output-header">
+                    <div class="output-title">📋 フォルダ構成</div>
+                    <button class="copy-button" id="copyButton" onclick="copyToClipboard()" disabled>
+                        📋 コピー
+                    </button>
+                </div>
+                <div class="output-area" id="outputArea">
+                    <div class="placeholder-text">フォルダを選択すると、ここに構成が表示されます</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <script src="./folder-structure-js.js"></script>
+</body>
+</html>
