@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>フォルダ選択テスト</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>フォルダを選択してください</h1><!-- フォルダ選択ボタン -->
+    <div id="dropArea">ここにドラッグ＆ドロップしてください
+      
+    </div>
+    <!-- type="file" でファイル選択できる -->
+    <!-- webkitdirectory 属性をつけるとフォルダ単位で選択可能 -->
+    <input type="file" id="folderInput" webkitdirectory multiple>
+    <div id="textarea"></div>
+    <!-- 選択したファイルやフォルダの情報を表示するエリア -->
+    <p id="output"></p>
+    <button type="button" id="copy-config">コピー</button>
+
+  </div>
+  <script src="./script.js"></script>
+</body>
+</html>                 
