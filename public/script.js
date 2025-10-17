@@ -4,6 +4,13 @@ const output = document.getElementById("output");
 const dropArea = document.getElementById("dropArea");
 
 
+
+
+// ドラッグ＆ドロップ欄をクリック
+dropArea.addEventListener("click", () => {
+  folderInput.click(); // inputを擬似クリック
+});
+
 // -------------------
 // フォルダ選択（クリック）
 // -------------------
@@ -20,8 +27,8 @@ const graphConfig = (files) => {
 
   for (const file of files) {
     const parts = file.webkitRelativePath.split("/");
+    
     let current = tree;
-
     parts.forEach((part, index) => {
       if (index === parts.length - 1) {
         current[part] = true;
@@ -34,11 +41,12 @@ const graphConfig = (files) => {
 
   const printTree = (obj, prefix = "") => {
     let result = "";
+    
     for (const key in obj) {
       if (obj[key] === true) {
         result += prefix + "├── " + key + "\n";
       } else {
-        result += prefix + "├── " + key + "/" + "\n";
+        result += prefix + "├── " + key + "/📂" + "\n";
         result += printTree(obj[key], prefix + "│   ");
       }
     }
@@ -75,7 +83,7 @@ dropArea.addEventListener("drop", async (e) => {
 
   const items = e.dataTransfer.items;
   const files = [];
-  console.log(files);
+  console.log(items);
   
   // 再帰的にフォルダ内ファイルを取得
   const traverseFileTree = (item, path = "") => {
@@ -103,18 +111,22 @@ dropArea.addEventListener("drop", async (e) => {
   };
 
   const promises = [];
+  console.log(promises)
+  // フォルダが複数選択される可能性を考慮してforでループ
   for (let i = 0; i < items.length; i++) {
+    // wbkitgetasentry()でフォルダかファイル化を判別してitemに代入
     const item = items[i].webkitGetAsEntry();
+
     if (item) promises.push(traverseFileTree(item));
   }
 
   await Promise.all(promises);
 
     // Array -> FileList に変換
-  const dataTransfer = new DataTransfer();
-  files.forEach(file => dataTransfer.items.add(file));
-  const fileList = dataTransfer.files; // ここが input.files と同じ形式
-  
+  // const dataTransfer = new DataTransfer();
+  // files.forEach(file => dataTransfer.items.add(file));
+  // const fileList = dataTransfer.files;
+   // ここが input.files と同じ形式
   graphConfig(files);
 });
 
